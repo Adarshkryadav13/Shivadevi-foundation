@@ -161,13 +161,4 @@ Project handover includes:
 - Admin usage document
 - Playwright smoke tests
 
-For operational support, update contact details as per your team process.
 
-## WordPress Conversion Scaffold
-
-A migration-ready WordPress scaffold is included at:
-
-- `wordpress/wp-content/themes/shivadevi-foundation`
-- `wordpress/wp-content/plugins/shivadevi-core`
-
-See `wordpress/README.md` for setup and migration steps.
