@@ -1,0 +1,357 @@
+.hero {
+  background: linear-gradient(135deg, var(--green-light), var(--yellow-light));
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0.5rem 0;
+}
+.sub {
+  font-size: 0.9rem;
+  color: var(--mid);
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.main { padding: 3rem 0 5rem; }
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.formCard {
+  background: #fff;
+  border-radius: 24px;
+  padding: 2.5rem;
+  border: 1.5px solid rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+}
+.subTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+.amtGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.amtBtn {
+  background: var(--light);
+  border: 2px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 0.85rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.amtBtn:hover { border-color: var(--green); color: var(--green); }
+.amtActive { background: var(--green); color: #fff !important; border-color: var(--green) !important; }
+
+.customWrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.rupee {
+  padding: 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-light);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+.customInput {
+  flex: 1;
+  border: none;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark);
+  background: #fff;
+}
+.customInput::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.impactLine {
+  background: var(--green-light);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  color: var(--green-dark, #1e5c3a);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--mid);
+  margin-bottom: 0.4rem;
+}
+.select {
+  width: 100%;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: var(--dark);
+  background: #fff;
+  margin-bottom: 1rem;
+}
+
+.recurringRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--mid);
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+.checkbox { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; }
+
+.divider { border: none; border-top: 1.5px solid rgba(0,0,0,0.07); margin: 1.5rem 0; }
+
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.field { margin-bottom: 1rem; }
+.input {
+  width: 100%;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: var(--dark);
+  background: #fff;
+  transition: border-color 0.2s;
+}
+.input:focus { border-color: var(--green); }
+.inputErr { border-color: #e8522a !important; }
+.err { font-size: 0.78rem; color: #e8522a; margin-top: 0.3rem; }
+
+.donateBtn {
+  width: 100%;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+.donateBtn:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,122,79,0.3); }
+.qrNotice {
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--green-dark, #1e5c3a);
+  background: var(--green-light);
+  border: 1px solid rgba(45, 122, 79, 0.25);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+.paymentOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 2000;
+}
+.paymentModal {
+  width: min(460px, 96vw);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.paymentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  color: #fff;
+  background: linear-gradient(135deg, #2d7a4f, #1f5f3c);
+}
+.paymentHeader h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.paymentClose {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.paymentBody {
+  padding: 1rem 1.2rem 1.2rem;
+}
+.paymentAmount {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+.paymentMeta {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  color: var(--mid);
+}
+.paymentQrWrap {
+  margin-top: 1rem;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  text-align: center;
+}
+.paymentQr {
+  width: 220px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+.paymentHelp {
+  margin: 0.8rem 0 0;
+  font-size: 0.85rem;
+  color: var(--mid);
+  text-align: center;
+}
+.paymentActions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+.secondaryBtn,
+.primaryBtn {
+  flex: 1;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.secondaryBtn {
+  background: #edf2f7;
+  color: #334155;
+}
+.primaryBtn {
+  background: var(--green);
+  color: #fff;
+}
+
+.trust {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--mid);
+  font-weight: 500;
+}
+
+/* Sidebar */
+.sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+.sideCard, .progressCard, .trustCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1.5px solid rgba(0,0,0,0.07);
+}
+.sideTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+.promiseRow { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; }
+.promiseAmt { font-size: 0.82rem; font-weight: 700; color: var(--green); min-width: 52px; white-space: nowrap; }
+.promiseDesc { font-size: 0.82rem; color: var(--mid); line-height: 1.4; }
+
+.progressNums { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+.raised { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--green); }
+.goalText { font-size: 0.85rem; color: var(--mid); }
+.progressBar { background: rgba(0,0,0,0.08); border-radius: 50px; height: 10px; overflow: hidden; margin-bottom: 0.5rem; }
+.progressFill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--green), var(--green-mid)); }
+.progressMeta { font-size: 0.78rem; color: var(--mid); }
+
+.trustRow { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; }
+.trustIcon { font-size: 1.1rem; flex-shrink: 0; }
+.trustText { font-size: 0.85rem; color: var(--mid); line-height: 1.4; }
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+}
+.sideCards {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  max-width: 400px;
+  
+}
+
+.sideTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  margin-left: 115px;
+}
+
+/* IMAGE */
+.bankImage {
+  text-align: center;
+  margin-bottom: 15px;
+  margin-left: 80px;
+}
+
+.bankImage img {
+  width: 200px;
+  border-radius: 10px;
+}
+
+/* DETAILS */
+.bankDetails p {
+  font-size: 14px;
+  margin: 6px 0;
+}
+.bankDetails{
+  margin-left: 50px;
+}

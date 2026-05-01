@@ -1,0 +1,239 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(8px);
+}
+
+.scrolled {
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo span { color: var(--yellow-dark); }
+
+.links {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--mid);
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 2px;
+}
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transition: transform 0.2s;
+  border-radius: 2px;
+}
+.link:hover, .active {
+  color: var(--green);
+}
+.link:hover::after, .active::after {
+  transform: scaleX(1);
+}
+
+.cta {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 1.3rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cta:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+}
+
+.bar {
+  width: 24px;
+  height: 2px;
+  background: var(--dark);
+  border-radius: 2px;
+  transition: all 0.25s;
+  display: block;
+}
+
+.mobileMenu {
+  background: var(--white);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 1rem 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobileLink {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mid);
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: color 0.2s;
+}
+.mobileLink:hover { color: var(--green); }
+
+.mobileCta {
+  display: block;
+  margin-top: 0.75rem;
+  background: var(--green);
+  color: #fff;
+  text-align: center;
+  border-radius: 50px;
+  padding: 0.8rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .links, .cta { display: none; }
+  .hamburger { display: flex; }
+  .inner { justify-content: space-between; }
+}
+
+.muibox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #657C6B;
+  color: #fff;
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+/* LEFT SIDE */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 32px; /* 🔥 GAP BETWEEN PHONE & EMAIL */
+}
+
+/* EACH ITEM */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 🔥 ICON ↔ TEXT GAP */
+}
+
+/* ICON */
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* RIGHT SIDE */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.right a {
+  color: #fff;
+  margin-left: 15px;
+  font-size: 22px;
+  transition: 0.3s;
+}
+
+.right a:hover {
+  opacity: 1;
+}
+
+.logo img {
+  height: 72px;   /* adjust as needed */
+  width: auto;
+  object-fit: contain;
+}
+/* wrapper */
+.dropdownWrapper {
+  position: relative;
+}
+
+/* dropdown box */
+.dropdown {
+  position: absolute;
+  top: 100%; /* instead of 40px */
+  left: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  width: 200px;
+  display: none;
+  flex-direction: column;
+  z-index: 999; /* important */
+}
+
+/* show on hover */
+.dropdownWrapper {
+  position: relative;
+}
+.dropdownWrapper:hover .dropdown {
+  display: flex;
+}
+
+/* items */
+.dropdownItem {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.dropdownItem:hover {
+  background: #f5f5f5;
+  color: #2ECC71;
+}
