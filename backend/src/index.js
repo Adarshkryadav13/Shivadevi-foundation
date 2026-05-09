@@ -1,9 +1,9 @@
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import rateLimit from 'express-rate-limit'
-import dotenv from 'dotenv'
 import { connectDB } from './config/db.js'
 import path from "path";
 import { requireJwt } from './middleware/requireJwt.js'
@@ -18,8 +18,6 @@ import postRoutes from "./routes/posts.js";
 import programRoutes from "./routes/programs.js";
 import eventRoutes from "./routes/events.js";
 
-
-dotenv.config()
 
 const app = express()
 
