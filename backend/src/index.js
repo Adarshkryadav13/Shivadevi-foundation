@@ -51,25 +51,41 @@ app.use(helmet())
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 
 // CORS
+app.set("trust proxy", 1);
+
+// CORS
 const allowedOrigins = (
   process.env.CORS_ORIGINS ||
-  'http://localhost:3000,http://localhost:3001, https://shivadevifoundation.org'
+  "http://localhost:3000,http://localhost:3001,https://shivadevifoundation.org,https://www.shivadevifoundation.org"
 )
-  .split(',')
+  .split(",")
   .map((origin) => origin.trim())
-  .filter(Boolean)
+  .filter(Boolean);
 
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow server-to-server calls or curl/postman without Origin header.
-    if (!origin) return callback(null, true)
-    if (allowedOrigins.includes(origin)) return callback(null, true)
-    return callback(new Error('CORS origin not allowed'))
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true,
-}))
-app.options('*', cors())
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests without origin (Postman, mobile apps, server requests)
+      if (!origin) return callback(null, true);
+
+      // Allow frontend origins
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log("Blocked by CORS:", origin);
+
+      return callback(new Error("CORS origin not allowed"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+// Handle preflight requests
+app.options("*", cors());
+
+// Cross origin resources
 app.use((req, res, next) => {
   res.header("Cross-Origin-Resource-Policy", "cross-origin");
   next();
