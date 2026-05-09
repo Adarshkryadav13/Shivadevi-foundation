@@ -53,7 +53,7 @@ app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 // CORS
 const allowedOrigins = (
   process.env.CORS_ORIGINS ||
-  'http://localhost:3000,http://localhost:3001,https://shivadevifoundation.org.taxspexdevising.com'
+  'http://localhost:3000,http://localhost:3001, https://shivadevifoundation.org'
 )
   .split(',')
   .map((origin) => origin.trim())
