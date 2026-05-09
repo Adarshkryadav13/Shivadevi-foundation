@@ -52,35 +52,39 @@ app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 
 // CORS
 app.set("trust proxy", 1);
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 
 // CORS
-const allowedOrigins = (
-  process.env.CORS_ORIGINS ||
-  "http://localhost:3000,http://localhost:3001,https://shivadevifoundation.org,https://www.shivadevifoundation.org"
-)
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+// const allowedOrigins = (
+//   process.env.CORS_ORIGINS ||
+//   "http://localhost:3000,http://localhost:3001,https://shivadevifoundation.org,https://www.shivadevifoundation.org"
+// )
+//   .split(",")
+//   .map((origin) => origin.trim())
+//   .filter(Boolean);
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests without origin (Postman, mobile apps, server requests)
-      if (!origin) return callback(null, true);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       // Allow requests without origin (Postman, mobile apps, server requests)
+//       if (!origin) return callback(null, true);
 
-      // Allow frontend origins
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
+//       // Allow frontend origins
+//       if (allowedOrigins.includes(origin)) {
+//         return callback(null, true);
+//       }
 
-      console.log("Blocked by CORS:", origin);
+//       console.log("Blocked by CORS:", origin);
 
-      return callback(new Error("CORS origin not allowed"));
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    credentials: true,
-  })
-);
+//       return callback(new Error("CORS origin not allowed"));
+//     },
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+//     credentials: true,
+//   })
+// );
 
 // Handle preflight requests
 app.options("*", cors());
