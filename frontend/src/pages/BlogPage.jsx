@@ -181,10 +181,12 @@ export default function BlogPage() {
   // ✅ FETCH POSTS
   useEffect(() => {
     fetch(`${API_BASE}/posts`)
-      .then(res => res.json())
+      .then(async (res) => {
+        const data = await res.json()
+        return data
+      })
       .then(data => {
-        console.log("POSTS:", data)
-        setPosts(data)
+        setPosts(Array.isArray(data) ? data : [])
       })
       .catch(err => console.error('Error fetching posts:', err))
       .finally(() => setLoading(false))

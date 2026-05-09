@@ -16,7 +16,8 @@ export default function ManageEvents() {
   const [form, setForm] = useState({
     title: "",
     description: "",
-    date: "",
+    startDate: "",
+    endDate: "",
     time: "",
     location: "",
     category: "",
@@ -58,6 +59,11 @@ export default function ManageEvents() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (form.endDate && form.startDate && new Date(form.endDate) < new Date(form.startDate)) {
+      alert("End date cannot be before start date");
+      return;
+    }
+
     try {
       setIsSubmitting(true);
       const formData = new FormData();
@@ -65,6 +71,10 @@ export default function ManageEvents() {
       Object.keys(form).forEach((key) => {
         formData.append(key, form[key]);
       });
+      // Backward compatibility for servers that still expect `date`.
+      if (form.startDate) {
+        formData.append("date", form.startDate);
+      }
 
       images.forEach((img) => {
         formData.append("images", img);
@@ -81,7 +91,8 @@ export default function ManageEvents() {
       setForm({
         title: "",
         description: "",
-        date: "",
+        startDate: "",
+        endDate: "",
         time: "",
         location: "",
         category: "",
@@ -95,7 +106,7 @@ export default function ManageEvents() {
 
     } catch (err) {
       console.error(err);
-      alert("Failed ❌");
+      alert(err?.response?.data?.message || err?.response?.data?.error || "Failed ❌");
     } finally {
       setIsSubmitting(false);
     }
@@ -118,7 +129,8 @@ export default function ManageEvents() {
     setForm({
       title: event.title || "",
       description: event.description || "",
-      date: event.date ? String(event.date).slice(0, 10) : "",
+      startDate: (event.startDate || event.date) ? String(event.startDate || event.date).slice(0, 10) : "",
+      endDate: event.endDate ? String(event.endDate).slice(0, 10) : "",
       time: event.time || "",
       location: event.location || "",
       category: event.category || "",
@@ -213,15 +225,33 @@ export default function ManageEvents() {
           />
         </label>
 
-        <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "1fr 1fr 1fr" }}>
+        <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
           <label style={{ fontSize: "14px", fontWeight: 600 }}>
-            Date
+            Start Date
             <input
               type="date"
-              name="date"
-              value={form.date}
+              name="startDate"
+              value={form.startDate}
               onChange={handleChange}
               required
+              style={{
+                marginTop: "6px",
+                width: "100%",
+                border: "1px solid #cbd5e1",
+                borderRadius: "8px",
+                padding: "10px 12px",
+              }}
+            />
+          </label>
+
+          <label style={{ fontSize: "14px", fontWeight: 600 }}>
+            End Date
+            <input
+              type="date"
+              name="endDate"
+              value={form.endDate}
+              min={form.startDate || undefined}
+              onChange={handleChange}
               style={{
                 marginTop: "6px",
                 width: "100%",
@@ -328,7 +358,8 @@ export default function ManageEvents() {
                 setForm({
                   title: "",
                   description: "",
-                  date: "",
+                  startDate: "",
+                  endDate: "",
                   time: "",
                   location: "",
                   category: "",
@@ -384,7 +415,11 @@ export default function ManageEvents() {
             )}
             <p style={{ margin: "0 0 10px", color: "#334155" }}>
               <strong>Date:</strong>{" "}
-              {event.date ? new Date(event.date).toDateString() : "TBD"}
+              {event.startDate || event.date
+                ? `${new Date(event.startDate || event.date).toDateString()}${
+                    event.endDate ? ` - ${new Date(event.endDate).toDateString()}` : ""
+                  }`
+                : "TBD"}
               {event.time ? ` • ${event.time}` : ""}
             </p>
 

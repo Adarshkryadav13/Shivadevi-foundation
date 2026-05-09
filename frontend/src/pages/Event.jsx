@@ -9,6 +9,14 @@ const MEDIA_BASE = API_BASE.startsWith('http')
 const resolveMediaUrl = (url) =>
   !url ? '' : url.startsWith('http') ? url : `${MEDIA_BASE}${url}`
 
+const formatEventDateRange = (event) => {
+  const start = event.startDate || event.date
+  if (!start) return 'Date TBD'
+  const startLabel = new Date(start).toDateString()
+  if (!event.endDate) return startLabel
+  return `${startLabel} - ${new Date(event.endDate).toDateString()}`
+}
+
 const Event = () => {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
@@ -68,7 +76,7 @@ const Event = () => {
 
                   <div className={styles.metaWrap}>
                     <span className={styles.meta}>
-                      {event.date ? new Date(event.date).toDateString() : 'Date TBD'}
+                      {formatEventDateRange(event)}
                     </span>
                     {event.time && <span className={styles.meta}>{event.time}</span>}
                     {event.location && <span className={styles.meta}>{event.location}</span>}

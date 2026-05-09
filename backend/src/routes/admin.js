@@ -257,7 +257,7 @@ router.get('/subscribers', authMiddleware, async (req, res) => {
 // ================= EVENTS =================
 router.get('/events', authMiddleware, async (req, res) => {
   try {
-    const events = await UpcomingEvent.find().sort({ date: 1, createdAt: -1 })
+    const events = await UpcomingEvent.find().sort({ startDate: 1, createdAt: -1 })
     res.json(events)
   } catch (err) {
     console.error('EVENT FETCH ERROR:', err)
@@ -276,7 +276,9 @@ router.post(
       const event = await UpcomingEvent.create({
         title: req.body.title,
         description: req.body.description || '',
-        date: req.body.date,
+        startDate: req.body.startDate || req.body.date,
+        endDate: req.body.endDate || null,
+        date: req.body.startDate || req.body.date,
         time: req.body.time || '',
         location: req.body.location || '',
         category: req.body.category || '',
@@ -309,7 +311,9 @@ router.put(
         {
           title: req.body.title ?? existing.title,
           description: req.body.description ?? existing.description,
-          date: req.body.date ?? existing.date,
+          startDate: req.body.startDate ?? req.body.date ?? existing.startDate ?? existing.date,
+          endDate: req.body.endDate ?? existing.endDate ?? null,
+          date: req.body.startDate ?? req.body.date ?? existing.startDate ?? existing.date,
           time: req.body.time ?? existing.time,
           location: req.body.location ?? existing.location,
           category: req.body.category ?? existing.category,

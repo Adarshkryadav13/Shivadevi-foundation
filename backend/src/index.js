@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit'
 import dotenv from 'dotenv'
 import { connectDB } from './config/db.js'
 import path from "path";
+import { requireJwt } from './middleware/requireJwt.js'
 
 // Routes
 import donationRoutes from './routes/donations.js'
@@ -13,7 +14,7 @@ import contactRoutes from './routes/contact.js'
 import volunteerRoutes from './routes/volunteers.js'
 import newsletterRoutes from './routes/newsletter.js'
 import adminRoutes from './routes/admin.js'
-import postRoutes from "./routes/Posts.js";
+import postRoutes from "./routes/posts.js";
 import programRoutes from "./routes/programs.js";
 import eventRoutes from "./routes/events.js";
 
@@ -24,21 +25,51 @@ const app = express()
 
 const PORT = process.env.PORT || 5001
 
+// Behind nginx, Railway, Render, etc.: set TRUST_PROXY=1 so req.secure and HTTPS redirects reflect the client connection.
+const trustProxy = process.env.TRUST_PROXY
+if (trustProxy === '1' || trustProxy === 'true') {
+  app.set('trust proxy', 1)
+} else if (trustProxy && /^\d+$/.test(trustProxy)) {
+  app.set('trust proxy', Number(trustProxy))
+}
 
 // Connect to MongoDB
 connectDB()
+
+// Reject plain HTTP when ENFORCE_HTTPS=true (set on the public deployment; keep off for local http://localhost).
+if (process.env.ENFORCE_HTTPS === 'true') {
+  app.use((req, res, next) => {
+    if (req.path === '/api/health') return next()
+    const proto = req.headers['x-forwarded-proto']
+    if (req.secure || proto === 'https') return next()
+    return res.status(403).json({ error: 'HTTPS required' })
+  })
+}
 
 // Security middleware
 app.use(helmet())
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 
 // CORS
-app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:3001"] ,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true ,
-}))
+const allowedOrigins = (
+  process.env.CORS_ORIGINS ||
+  'http://localhost:3000,http://localhost:3001,https://shivadevifoundation.org.taxspexdevising.com'
+)
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
 
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow server-to-server calls or curl/postman without Origin header.
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.includes(origin)) return callback(null, true)
+    return callback(new Error('CORS origin not allowed'))
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  credentials: true,
+}))
+app.options('*', cors())
 app.use((req, res, next) => {
   res.header("Cross-Origin-Resource-Policy", "cross-origin");
   next();
@@ -65,6 +96,13 @@ const donationLimiter = rateLimit({
 })
 app.use('/api/donations', donationLimiter)
 
+// Make API private when API_PRIVATE=true.
+// To keep any endpoint public, set API_PUBLIC_PATHS (comma-separated),
+// e.g. "/health,/admin/login". Leave empty to protect all /api routes.
+if (process.env.API_PRIVATE === 'true') {
+  app.use('/api', requireJwt)
+}
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
@@ -75,7 +113,6 @@ app.get('/api/health', (req, res) => {
 })
 
 // API Routes
-console.log("POST ROUTE HIT");
 app.use('/api/donations', donationRoutes)
 app.use('/api/contact', contactRoutes)          // ✅ public form
 app.use('/api/admin/contacts', contactRoutes)   // ✅ admin panel
