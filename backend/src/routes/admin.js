@@ -19,6 +19,7 @@ const buildSlug = (value = '') =>
     .trim()
     .replace(/\s+/g, '-')
     .replace(/[^\w-]+/g, '')
+const getUploadedFileUrl = (file) => file?.path || file?.secure_url || ''
 const normalizePost = (postDoc) => {
   const post = postDoc.toObject ? postDoc.toObject() : postDoc
   const images = Array.isArray(post.images)
@@ -154,11 +155,11 @@ router.post(
       const slug = buildSlug(title || `post-${Date.now()}`)
 
       const images = files.images
-        ? files.images.map((file) => `/uploads/${file.filename}`)
+        ? files.images.map((file) => getUploadedFileUrl(file)).filter(Boolean)
         : [];
 
       const pdf = files.pdf
-        ? `/uploads/${files.pdf[0].filename}`
+        ? getUploadedFileUrl(files.pdf[0])
         : "";
 
       const post = await Post.create({
@@ -271,7 +272,9 @@ router.post(
   upload.array('images', 10),
   async (req, res) => {
     try {
-      const images = req.files?.map((file) => `/uploads/${file.filename}`) || []
+      const images = (req.files || [])
+        .map((file) => getUploadedFileUrl(file))
+        .filter(Boolean)
 
       const event = await UpcomingEvent.create({
         title: req.body.title,
@@ -303,7 +306,7 @@ router.put(
       if (!existing) return res.status(404).json({ message: 'Event not found' })
 
       const nextImages = req.files?.length
-        ? req.files.map((file) => `/uploads/${file.filename}`)
+        ? req.files.map((file) => getUploadedFileUrl(file)).filter(Boolean)
         : existing.images
 
       const updated = await UpcomingEvent.findByIdAndUpdate(

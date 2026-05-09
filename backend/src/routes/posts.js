@@ -65,6 +65,7 @@ import Post from "../models/Post.js";
 import upload from "../middleware/upload.js";
 
 const router = express.Router();
+const getUploadedFileUrl = (file) => file?.path || file?.secure_url || "";
 const normalizePost = (postDoc) => {
   const post = postDoc.toObject ? postDoc.toObject() : postDoc;
   const images = Array.isArray(post.images)
@@ -118,7 +119,9 @@ router.post("/", upload.array("images", 10), async (req, res) => {
       ? req.body.title.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "")
       : "no-title";
 
-    const images = req.files?.map(file => `/uploads/${file.filename}`) || [];
+    const images = (req.files || [])
+      .map((file) => getUploadedFileUrl(file))
+      .filter(Boolean);
 
     const post = await Post.create({
       title: req.body.title,
