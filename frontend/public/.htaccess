@@ -1,0 +1,12 @@
+# Shivadevi Foundation — React SPA on cPanel (Apache).
+# Upload the contents of `dist/` to your main domain document root so this file is served.
+# On Vercel, routing is handled by vercel.json instead (this file is ignored there).
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

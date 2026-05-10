@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import { getFrontendUrl } from './publicUrls.js'
 
 const createTransporter = () =>
   nodemailer.createTransport({
@@ -89,7 +90,7 @@ export const sendContactAutoReply = async ({ to, firstName }) => {
       <div style="font-family: Arial, sans-serif; max-width: 560px; color: #1A1A2E;">
         <h2 style="color: #2D7A4F;">Hi ${firstName} 👋</h2>
         <p>Thank you for reaching out to BrightEarth Foundation! We've received your message and our team will get back to you within 24 business hours.</p>
-        <p>In the meantime, you can explore our work at <a href="${process.env.FRONTEND_URL}" style="color: #2D7A4F;">Shivadevifoundation.org</a>.</p>
+        <p>In the meantime, you can explore our work at <a href="${getFrontendUrl()}" style="color: #2D7A4F;">Shivadevifoundation.org</a>.</p>
         <p>With gratitude,<br><strong>Team Shivadevi</strong></p>
       </div>
     `,

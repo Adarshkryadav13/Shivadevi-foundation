@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import rateLimit from 'express-rate-limit'
 import { connectDB } from './config/db.js'
+import { getCorsAllowedOrigins } from './config/publicUrls.js'
 import path from "path";
 import { requireJwt } from './middleware/requireJwt.js'
 
@@ -48,44 +49,22 @@ if (process.env.ENFORCE_HTTPS === 'true') {
 app.use(helmet())
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 
-// CORS
-app.set("trust proxy", 1);
-app.use(cors({
-  origin: true,
+// CORS — https://shivadevifoundation.org (+ www) by default; localhost for dev; optional CORS_ORIGINS
+app.set('trust proxy', 1)
+const corsAllowed = getCorsAllowedOrigins()
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin) return callback(null, true)
+    if (corsAllowed.includes(origin)) return callback(null, true)
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('CORS blocked origin:', origin)
+    }
+    return callback(null, false)
+  },
   credentials: true,
-}));
-
-// CORS
-// const allowedOrigins = (
-//   process.env.CORS_ORIGINS ||
-//   "http://localhost:3000,http://localhost:3001,https://shivadevifoundation.org,https://www.shivadevifoundation.org"
-// )
-//   .split(",")
-//   .map((origin) => origin.trim())
-//   .filter(Boolean);
-
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       // Allow requests without origin (Postman, mobile apps, server requests)
-//       if (!origin) return callback(null, true);
-
-//       // Allow frontend origins
-//       if (allowedOrigins.includes(origin)) {
-//         return callback(null, true);
-//       }
-
-//       console.log("Blocked by CORS:", origin);
-
-//       return callback(new Error("CORS origin not allowed"));
-//     },
-//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-//     credentials: true,
-//   })
-// );
-
-// Handle preflight requests
-app.options("*", cors());
+}
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
 
 // Cross origin resources
 app.use((req, res, next) => {

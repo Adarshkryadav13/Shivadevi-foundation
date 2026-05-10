@@ -1,13 +1,10 @@
 import axios from 'axios'
+import { getApiBase } from './siteConfig.js'
 
-const envApiUrl = import.meta.env.VITE_API_URL?.trim()
-const resolvedApiBase =
-  envApiUrl && envApiUrl.length > 0
-    ? envApiUrl.replace(/\/+$/, '')
-    : 'http://localhost:5001/api'
+const resolvedApiBase = getApiBase()
 
 const api = axios.create({
-  baseURL: resolvedApiBase, //'http://localhost:5001/api'
+  baseURL: resolvedApiBase,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 })

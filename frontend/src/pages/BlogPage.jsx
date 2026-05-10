@@ -149,14 +149,10 @@
 
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { getApiBase, resolveMediaUrl } from '../lib/siteConfig.js'
 import styles from './BlogPage.module.css'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001/api'
-const MEDIA_BASE = API_BASE.startsWith('http')
-  ? API_BASE.replace(/\/api\/?$/, '')
-  : 'http://localhost:5001'
-const resolveMediaUrl = (url) =>
-  !url ? '' : url.startsWith('http') ? url : `${MEDIA_BASE}${url}`
+const API_BASE = getApiBase()
 const getPostImages = (post) =>
   Array.isArray(post.images) && post.images.length > 0
     ? post.images

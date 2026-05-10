@@ -3,14 +3,10 @@ import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { format } from 'date-fns'
 import PageMotion from '../components/ui/PageMotion'
+import { getApiBase, resolveMediaUrl } from '../lib/siteConfig.js'
 import styles from './BlogPostPage.module.css'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001/api'
-const MEDIA_BASE = API_BASE.startsWith('http')
-  ? API_BASE.replace(/\/api\/?$/, '')
-  : 'http://localhost:5001'
-const resolveMediaUrl = (url) =>
-  !url ? '' : url.startsWith('http') ? url : `${MEDIA_BASE}${url}`
+const API_BASE = getApiBase()
 
 // Fallback posts
 const fallbackContent = {
