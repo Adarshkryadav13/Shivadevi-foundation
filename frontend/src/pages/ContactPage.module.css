@@ -198,3 +198,51 @@ textarea {
   font-size: 50px;
   margin-bottom: 10px;
 }
+
+/* Responsive overrides */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .formCard,
+  .formBox {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.7rem, 8vw, 2.2rem);
+  }
+
+  .contactWrap {
+    padding: 2.5rem 1rem;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .involveGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+
+  .mailIcon {
+    font-size: 20px;
+  }
+}

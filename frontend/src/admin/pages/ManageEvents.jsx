@@ -165,7 +165,7 @@ export default function ManageEvents() {
           gap: "12px",
         }}
       >
-        <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "1fr 1fr" }}>
+        <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
           <label style={{ fontSize: "14px", fontWeight: 600 }}>
             Title
             <input
@@ -221,7 +221,7 @@ export default function ManageEvents() {
           />
         </label>
 
-        <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
+        <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
           <label style={{ fontSize: "14px", fontWeight: 600 }}>
             Start Date
             <input
@@ -328,7 +328,7 @@ export default function ManageEvents() {
           </div>
         )}
 
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           <button
             type="submit"
             disabled={isSubmitting}
@@ -398,7 +398,7 @@ export default function ManageEvents() {
                 src={resolveMediaUrl(event.images[0])}
                 alt="event"
                 width="220"
-                style={{ borderRadius: "8px", marginBottom: "8px" }}
+                style={{ borderRadius: "8px", marginBottom: "8px", width: "min(100%, 220px)", height: "auto" }}
               />
             )}
 
@@ -419,7 +419,7 @@ export default function ManageEvents() {
               {event.time ? ` • ${event.time}` : ""}
             </p>
 
-            <div style={{ display: "flex", gap: "8px" }}>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
               <button
                 onClick={() => handleEdit(event)}
                 style={{

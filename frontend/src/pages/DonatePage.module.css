@@ -355,3 +355,51 @@
 .bankDetails{
   margin-left: 50px;
 }
+
+/* Responsive overrides */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .formCard {
+    padding: 1.5rem;
+  }
+
+  .sideCards {
+    max-width: 100%;
+  }
+
+  .sideTitle,
+  .bankImage,
+  .bankDetails {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .main {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .amtGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .paymentActions {
+    flex-direction: column;
+  }
+
+  .sub {
+    gap: 0.5rem;
+  }
+
+  .bankImage img {
+    width: min(100%, 220px);
+  }
+}

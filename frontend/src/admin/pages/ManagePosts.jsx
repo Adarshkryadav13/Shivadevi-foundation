@@ -196,7 +196,7 @@ export default function ManagePosts() {
           </select>
         </label>
 
-        <div style={{ display: "grid", gap: "10px", gridTemplateColumns: "1fr 1fr" }}>
+        <div style={{ display: "grid", gap: "10px", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
           <label style={{ fontWeight: 600, fontSize: "14px" }}>
             Upload Images
             <input
@@ -252,7 +252,7 @@ export default function ManagePosts() {
           </div>
         )}
 
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           <button
             className="M-btn"
             type="submit"
@@ -324,7 +324,7 @@ export default function ManagePosts() {
   <p style={{ color: "#64748b", marginBottom: "12px" }}>No Image</p>
 )}
 
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             <button onClick={() => handleEdit(post)} style={{ padding: "8px 12px" }}>
               Edit
             </button>

@@ -77,13 +77,13 @@ input, textarea, select {
 
 /* Utility Classes */
 .container {
-  max-width: 1100px;
+  width: min(100%, 1200px);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
 .section {
-  padding: 5rem 2rem;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem);
 }
 
 .section-tag {
@@ -159,8 +159,9 @@ input, textarea, select {
 }
 .M-btn{
   background-color:var(--green);
-  height: 50px;
-  width: 100px;
+  min-height: 44px;
+  min-width: 100px;
+  padding: 0.65rem 1rem;
   border-radius: 15px;
 
 }
@@ -180,10 +181,10 @@ input, textarea, select {
   background: #f5f5f5;
   border-radius: 30px;
   padding: 30px;
-  width: 300px;
+  width: min(100%, 300px);
   margin: 40px auto;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  height: 400px;
+  min-height: 400px;
 }
 
 /* TITLE */
@@ -256,8 +257,9 @@ input, textarea, select {
 .program-section {
   display: flex;
   gap: 40px;
-  padding: 50px;
+  padding: clamp(1rem, 4vw, 3rem);
   background: #f9f9f9;
+  align-items: flex-start;
 }
 
 /* LEFT CONTENT */
@@ -407,6 +409,29 @@ counter-reset: item;
   font-size: 14px;
 }
 .event{
-  height: 100px;
-  width: 100px;
+  height: auto;
+  width: min(100%, 100px);
+}
+
+@media (max-width: 1024px) {
+  .program-section {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hunger-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .hunger-icon-box {
+    width: 100%;
+  }
+
+  .program-section,
+  .program-section.reverse {
+    flex-direction: column;
+  }
 }

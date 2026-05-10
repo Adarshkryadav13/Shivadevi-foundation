@@ -176,3 +176,61 @@
   transform: translateY(-5px);
   transition: 0.3s;
 }
+
+/* Responsive overrides */
+@media (max-width: 1024px) {
+  .mvGrid,
+  .valuesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timelineItem {
+    grid-template-columns: 72px 20px 1fr;
+  }
+
+  .timeline::before {
+    left: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
+
+  .heroSub {
+    font-size: 0.95rem;
+  }
+
+  .mvGrid,
+  .valuesGrid,
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineItem {
+    grid-template-columns: 58px 16px 1fr;
+    gap: 0.6rem;
+  }
+
+  .timelineYear {
+    font-size: 0.85rem;
+  }
+
+  .timeline::before {
+    left: 64px;
+  }
+
+  .imageWrapper {
+    width: min(100%, 200px);
+    height: min(100vw, 200px);
+  }
+
+  .ctaTitle {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+  }
+}

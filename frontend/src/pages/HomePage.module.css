@@ -411,3 +411,97 @@ width: 150px;
  height: 100px;
   object-fit: contain;
 }
+
+/* Responsive overrides */
+@media (max-width: 1200px) {
+  .partnersGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .blob1 { width: 360px; height: 360px; }
+  .blob2 { width: 260px; height: 260px; }
+  .blob3 { width: 160px; height: 160px; }
+
+  .impactGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .amtGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partnersGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 6rem 1rem 2.5rem;
+    min-height: auto;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .programsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .testiGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .testiImageWrapper {
+    width: 100px;
+    height: 130px;
+  }
+
+  .simpleCard {
+    min-height: 220px;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .simpleIcon {
+    font-size: 44px;
+  }
+
+  .simpleTitle {
+    font-size: 18px;
+  }
+
+  .partnersSection {
+    padding: 2rem 1rem;
+  }
+
+  .title {
+    font-size: clamp(1.6rem, 7vw, 2.25rem);
+  }
+
+  .partnersGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .partnersGrid img {
+    max-width: 100%;
+  }
+
+  .partnerCard {
+    height: 92px;
+    padding: 12px;
+  }
+
+  .partnerCard img {
+    width: 100%;
+    height: 64px;
+  }
+}
